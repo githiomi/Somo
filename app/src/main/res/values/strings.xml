@@ -11,4 +11,5 @@
     <string name="confirm_password_placeholder">Confirm Password</string>
     <string name="signup_button_text">Sign UP</string>
     <string name="already_have_an_account">Already have an account… Log in</string>
+    <string name="dashboard_header_placeholder">Welcome: User</string>
 </resources>

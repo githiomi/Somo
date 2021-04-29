@@ -2,12 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="5dp"
     android:background="@color/black">
 
     <ImageView
         android:id="@+id/ivOpenDrawer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_centerVertical="true"
         android:contentDescription="@string/app_name"
         android:padding="3dp"
@@ -21,16 +22,16 @@
         android:layout_toStartOf="@id/userProfilePicture"
         android:layout_toEndOf="@id/ivOpenDrawer"
         android:padding="3dp"
-        android:text="@string/username_placeholder"
+        android:text="@string/dashboard_header_placeholder"
         android:textAlignment="center"
         android:textColor="@color/vote_logo_color"
-        android:textSize="15sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/userProfilePicture"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:scaleType="centerCrop"
