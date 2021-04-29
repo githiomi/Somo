@@ -130,12 +130,21 @@
                             android:background="@color/transparent"
                             android:text="@string/login_button_text"
                             android:textAllCaps="true"
-                            android:textStyle="bold"
                             android:textColor="@color/white"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
 
                     </androidx.cardview.widget.CardView>
 
+                    <ProgressBar
+                        android:id="@+id/loginProgressBar"
+                        style="@android:style/Widget.DeviceDefault.Light.ProgressBar"
+                        android:layout_width="25dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:indeterminateTint="@color/vote_logo_color"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
