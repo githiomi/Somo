@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1092525809417",
+    "project_id": "uon-elections",
+    "storage_bucket": "uon-elections.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1092525809417:android:db1476e5d9e5c0a969bdd8",
+        "android_client_info": {
+          "package_name": "com.githiomi.somo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1092525809417-u4cjquvj61n2a9u8dku80go1fmespu30.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.githiomi.somo",
+            "certificate_hash": "e6db563af613523448994f2ed044019ac34795d8"
+          }
+        },
+        {
+          "client_id": "1092525809417-a3ub1fdg2p2kde9i50irjfcf9nkatv45.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDX98QfJY7vkoUbokJkUTwnH4pdE_ts2EU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1092525809417-a3ub1fdg2p2kde9i50irjfcf9nkatv45.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
