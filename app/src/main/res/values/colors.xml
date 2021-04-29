@@ -21,6 +21,8 @@
     <color name="whiteBread">#ffdb69</color>
     <color name="colorIcons">#7C7F81</color>
     <color name="colorPrimaryText">#1e1e1e</color>
+    <color name="vote_logo_color">#0D6291</color>
+    <color name="vote_blue">#CAD6FF</color>
     <color name="brown">#8B4513</color>
     <color name="colorWhiteDark">#DBDBDB</color>
     <color name="colorPrimaryLight">#CA7474</color>
