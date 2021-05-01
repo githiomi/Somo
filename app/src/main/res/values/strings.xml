@@ -1,4 +1,6 @@
 <resources>
+
+    <!-- Strings -->
     <string name="app_name">Vote by Somo</string>
     <string name="uon_es_title">University of Nairobi \nElectoral System</string>
     <string name="email_placeholder">Email</string>
@@ -14,4 +16,12 @@
     <string name="dashboard_header_placeholder">Welcome: User</string>
     <string name="profile">Profile</string>
     <string name="logout">Logout</string>
+    <string name="role_placeholder">Role</string>
+
+    <!-- String arrays -->
+    <string-array name="roles">
+        <item>An Admin</item>
+        <item>A Voter</item>
+    </string-array>
+
 </resources>
