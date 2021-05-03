@@ -18,6 +18,8 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -56,8 +58,9 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                 if ( currentUser != null ) {
                     // Get username and display it
                     String username = currentUser.getDisplayName();
+                    String header = "Welcome: " + username;
 
-                    wDashboardHeader.setText(userRole + ": " + username);
+                    wDashboardHeader.setText(header);
 
                     // Get profile picture and display it
                     Uri userUri = currentUser.getPhotoUrl();
@@ -73,7 +76,6 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                                 .load(R.drawable.profile_picture_placeholder)
                                 .into(wUserProfilePicture);
                     }
-
                 }
             }
         };
