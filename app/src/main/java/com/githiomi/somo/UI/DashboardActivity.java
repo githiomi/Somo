@@ -5,16 +5,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.githiomi.somo.R;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +30,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
     // Widgets
     @BindView(R.id.ivOpenDrawer) ImageView wOpenDrawer;
+    @BindView(R.id.dashboardHeader) TextView wDashboardHeader;
     @BindView(R.id.userProfilePicture) ImageView wUserProfilePicture;
 
     // Local variables
@@ -46,6 +51,30 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
+                FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+
+                if ( currentUser != null ) {
+                    // Get username and display it
+                    String username = currentUser.getDisplayName();
+
+                    wDashboardHeader.setText(userRole + ": " + username);
+
+                    // Get profile picture and display it
+                    Uri userUri = currentUser.getPhotoUrl();
+
+                    if (userUri != null) {
+                        Picasso.get()
+                                .load(userUri)
+                                .placeholder(R.drawable.profile_picture_placeholder)
+                                .error(R.drawable.profile_picture_placeholder)
+                                .into(wUserProfilePicture);
+                    } else {
+                        Picasso.get()
+                                .load(R.drawable.profile_picture_placeholder)
+                                .into(wUserProfilePicture);
+                    }
+
+                }
             }
         };
 

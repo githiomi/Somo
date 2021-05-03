@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.githiomi.somo.Models.Role;
 import com.githiomi.somo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -134,9 +135,6 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         wSignUpButton.setVisibility(View.GONE);
         wSignProgressBar.setVisibility(View.VISIBLE);
 
-        // Show the role
-        Toast.makeText(this, role, Toast.LENGTH_SHORT).show();
-
         // Activity
         Activity activity = this;
 
@@ -154,23 +152,28 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                     // With the user created, send their role to the database
                     if ( FirebaseAuth.getInstance().getCurrentUser() != null ) {
 
-                        FirebaseUser user = mFirebaseAuth.getCurrentUser();
-                        assert user != null;
-                        String userName = user.getDisplayName();
+                        if ( role.equals("An Admin") ){
+                            firebaseDatabaseReference = FirebaseDatabase.getInstance()
+                                    .getReference("User Role")
+                                    .child("Admins")
+                                    .child(username);
+                        }else {
+                            firebaseDatabaseReference = FirebaseDatabase.getInstance()
+                                    .getReference("User Role")
+                                    .child("Voters")
+                                    .child(username);
+                        }
 
-                        assert userName != null;
-
-                        firebaseDatabaseReference = FirebaseDatabase.getInstance()
-                                .getReference("User Role")
-                                .child(userName);
+                        // Create role object
+                        Role userRole = new Role(role);
 
                         firebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                // Check if item is in recents
+                                // Check if item is in the recent
                                 if ( !(snapshot.exists()) ){
-                                    firebaseDatabaseReference.setValue(recentSearch);
+                                    firebaseDatabaseReference.setValue(userRole);
                                 }
                             }
 
