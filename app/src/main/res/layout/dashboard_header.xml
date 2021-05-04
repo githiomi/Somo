@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/black"
-    android:padding="5dp">
+    android:padding="3dp">
 
     <ImageView
         android:id="@+id/ivOpenDrawer"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_centerVertical="true"
         android:clickable="true"
         android:contentDescription="@string/app_name"
@@ -31,8 +31,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/userProfilePicture"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:clickable="true"

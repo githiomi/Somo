@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.githiomi.somo.Models.Role;
+import com.githiomi.somo.Models.User;
 import com.githiomi.somo.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -62,7 +63,8 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     // Database
-    private DatabaseReference firebaseDatabaseReference;
+    private DatabaseReference roleDatabaseReference;
+    private DatabaseReference userDatabaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,27 +155,38 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                     if ( FirebaseAuth.getInstance().getCurrentUser() != null ) {
 
                         if ( role.equals("An Admin") ){
-                            firebaseDatabaseReference = FirebaseDatabase.getInstance()
+                            roleDatabaseReference = FirebaseDatabase.getInstance()
                                     .getReference("User Role")
                                     .child("Admins")
                                     .child(username);
+
+                            userDatabaseReference = FirebaseDatabase.getInstance()
+                                    .getReference("Users")
+                                    .child(username);
+
                         }else {
-                            firebaseDatabaseReference = FirebaseDatabase.getInstance()
+                            roleDatabaseReference = FirebaseDatabase.getInstance()
                                     .getReference("User Role")
                                     .child("Voters")
+                                    .child(username);
+
+                            userDatabaseReference = FirebaseDatabase.getInstance()
+                                    .getReference("Users")
                                     .child(username);
                         }
 
                         // Create role object
                         Role userRole = new Role(role);
+                        User user = new User(username, role);
 
-                        firebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
+                        roleDatabaseReference.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                                 // Check if item is in the recent
                                 if ( !(snapshot.exists()) ){
-                                    firebaseDatabaseReference.setValue(userRole);
+                                    roleDatabaseReference.setValue(userRole);
+                                    userDatabaseReference.setValue(user);
                                 }
                             }
 

@@ -1,25 +1,33 @@
 package com.githiomi.somo.UI;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.githiomi.somo.Models.User;
 import com.githiomi.somo.R;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -31,13 +39,18 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     private static final String TAG = DashboardActivity.class.getSimpleName();
 
     // Widgets
-    @BindView(R.id.ivOpenDrawer) ImageView wOpenDrawer;
-    @BindView(R.id.dashboardHeader) TextView wDashboardHeader;
-    @BindView(R.id.userProfilePicture) ImageView wUserProfilePicture;
+    @BindView(R.id.ivOpenDrawer)
+    ImageView wOpenDrawer;
+    @BindView(R.id.dashboardHeader)
+    TextView wDashboardHeader;
+    @BindView(R.id.userProfilePicture)
+    ImageView wUserProfilePicture;
 
     // Local variables
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+    // Database
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +68,39 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
                 FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
-                if ( currentUser != null ) {
+                if (currentUser != null) {
                     // Get username and display it
                     String username = currentUser.getDisplayName();
-                    String header = "Welcome: " + username;
 
-                    wDashboardHeader.setText(header);
+                    // Get the role
+                    // Database reference init
+                    databaseReference = FirebaseDatabase.getInstance()
+                            .getReference("Users");
+
+                    Query getRoleQuery = databaseReference.child(username).equalTo(username);
+
+                    getRoleQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            // Check if data exists
+                            if ( snapshot.exists() ){
+                                String role = snapshot.child("role").getValue(String.class);
+
+                                // Final header text
+                                String header = role + ": " + username;
+                                wDashboardHeader.setText(header);
+                            }else {
+                                String header = "Welcome: " + username;
+
+                                wDashboardHeader.setText(header);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            // Nothing
+                        }
+                    });
 
                     // Get profile picture and display it
                     Uri userUri = currentUser.getPhotoUrl();
@@ -91,22 +131,22 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
 
         // Temp method to log user out
-        if ( v == wUserProfilePicture ){
+        if (v == wUserProfilePicture) {
             logout();
         }
 
         // Method to open the side drawer
-        if ( v == wOpenDrawer ){
+        if (v == wOpenDrawer) {
             openDrawer(v);
         }
 
     }
 
     // Method to log out the user
-    private void logout(){
+    private void logout() {
 
         // Check if user is logged in
-        if ( mFirebaseAuth.getCurrentUser() != null ){
+        if (mFirebaseAuth.getCurrentUser() != null) {
             mFirebaseAuth.signOut();
         }
 
@@ -118,7 +158,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     }
 
     // Method to open drawer after image is clicked
-    private void openDrawer(View view){
+    private void openDrawer(View view) {
         Snackbar.make(view, "Drawer will open when created", Snackbar.LENGTH_SHORT)
                 .setBackgroundTint(getResources().getColor(R.color.vote_logo_color))
                 .setTextColor(getResources().getColor(R.color.white))
@@ -129,11 +169,26 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     // Methods for the drop down on profile picture
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return super.onCreateOptionsMenu(menu);
+        // Inflate the menu
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.dashboard_profile_picture, menu);
+
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        int option = item.getItemId();
+
+        if (option == R.id.toProfileNav) {
+            Toast.makeText(this, "To profile", Toast.LENGTH_SHORT).show();
+        }
+
+        if (option == R.id.toLogoutNav) {
+            logout();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -148,7 +203,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     protected void onStop() {
         super.onStop();
         // Check if auth state listener exists and remove it
-        if ( mAuthStateListener != null ){
+        if (mAuthStateListener != null) {
             mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
         }
     }
