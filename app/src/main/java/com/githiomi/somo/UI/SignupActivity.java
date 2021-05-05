@@ -160,20 +160,17 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                                     .child("Admins")
                                     .child(username);
 
-                            userDatabaseReference = FirebaseDatabase.getInstance()
-                                    .getReference("Users")
-                                    .child(username);
-
                         }else {
                             roleDatabaseReference = FirebaseDatabase.getInstance()
                                     .getReference("User Role")
                                     .child("Voters")
                                     .child(username);
 
-                            userDatabaseReference = FirebaseDatabase.getInstance()
-                                    .getReference("Users")
-                                    .child(username);
                         }
+
+                        userDatabaseReference = FirebaseDatabase.getInstance()
+                                .getReference("Users")
+                                .child(username);
 
                         // Create role object
                         Role userRole = new Role(role);

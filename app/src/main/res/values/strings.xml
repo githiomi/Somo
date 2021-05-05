@@ -17,11 +17,34 @@
     <string name="profile">Profile</string>
     <string name="logout">Logout</string>
     <string name="role_placeholder">Role</string>
+    <string name="dashboard_item">Dashboard Item</string>
+    <string name="error_text">Cannot Retrieve Data. \n\nCheck network connection.</string>
 
     <!-- String arrays -->
     <string-array name="roles">
         <item>An Admin</item>
         <item>A Voter</item>
+    </string-array>
+
+    <string-array name="admin_dashboard">
+        <item>All Candidates</item>
+        <item>Positions Viable</item>
+        <item>Candidates Per Position</item>
+        <item>Specific Candidate</item>
+        <item>Votes</item>
+    </string-array>
+
+    <string-array name="voter_dashboard">
+        <item>School President</item>
+        <item>Vice President</item>
+        <item>Treasurer</item>
+        <item>Secretary</item>
+        <item>Sports Secretary</item>
+        <item>ICT &amp; Innovation Secretary</item>
+        <item>Education Secretary</item>
+        <item>Residential Life Representative</item>
+        <item>Wellness Secretary</item>
+        <item>Medical and Environmental Secretary</item>
     </string-array>
 
 </resources>

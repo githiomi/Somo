@@ -9,14 +9,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.githiomi.somo.Models.User;
+import com.githiomi.somo.Adapters.DashboardAdapter;
 import com.githiomi.somo.R;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -39,18 +41,19 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     private static final String TAG = DashboardActivity.class.getSimpleName();
 
     // Widgets
-    @BindView(R.id.ivOpenDrawer)
-    ImageView wOpenDrawer;
-    @BindView(R.id.dashboardHeader)
-    TextView wDashboardHeader;
-    @BindView(R.id.userProfilePicture)
-    ImageView wUserProfilePicture;
+    @BindView(R.id.ivOpenDrawer) ImageView wOpenDrawer;
+    @BindView(R.id.dashboardHeader) TextView wDashboardHeader;
+    @BindView(R.id.userProfilePicture) ImageView wUserProfilePicture;
+    @BindView(R.id.dashboardProgressBar) ProgressBar wDashboardProgressBar;
+    @BindView(R.id.dashboardRecyclerView) RecyclerView wDashboardRecyclerView;
 
     // Local variables
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     // Database
     private DatabaseReference databaseReference;
+    // Dashboard strings
+    private String[] dashboardStrings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,21 +77,41 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
                     // Get the role
                     // Database reference init
-                    databaseReference = FirebaseDatabase.getInstance()
+                    databaseReference = FirebaseDatabase
+                            .getInstance()
                             .getReference("Users");
 
-                    Query getRoleQuery = databaseReference.child(username).equalTo(username);
+                    assert username != null;
+                    Query getRoleQuery = databaseReference.orderByChild("username").equalTo(username);
 
                     getRoleQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             // Check if data exists
                             if ( snapshot.exists() ){
-                                String role = snapshot.child("role").getValue(String.class);
+                                String role = snapshot.child(username).child("role").getValue(String.class);
 
                                 // Final header text
                                 String header = role + ": " + username;
                                 wDashboardHeader.setText(header);
+
+                                // Change dashboard depending on the role
+                                assert role != null;
+                                if ( role.equals("An Admin") ){
+                                    dashboardStrings = getResources().getStringArray(R.array.admin_dashboard);
+                                }
+
+                                if ( role.equals("A Voter") ){
+                                    dashboardStrings = getResources().getStringArray(R.array.voter_dashboard);
+                                }
+
+                                // Hide progress bar and show recycler view
+                                wDashboardProgressBar.setVisibility(View.GONE);
+                                wDashboardRecyclerView.setVisibility(View.VISIBLE);
+
+                                // Pass the string array to an adapter
+                                passToAdapter(dashboardStrings);
+
                             }else {
                                 String header = "Welcome: " + username;
 
@@ -123,6 +146,20 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         // Setting on click listeners
         wOpenDrawer.setOnClickListener(this);
         wUserProfilePicture.setOnClickListener(this);
+
+    }
+
+    // Method to place the string array into a recycler view adapter
+    private void passToAdapter(String[] dashboardStringArray){
+
+        // Init the adapter
+        DashboardAdapter dashboardStringAdapter = new DashboardAdapter(dashboardStringArray);
+
+        wDashboardRecyclerView.setLayoutManager( new LinearLayoutManager(this) );
+        wDashboardRecyclerView.setAdapter(dashboardStringAdapter);
+
+        wDashboardRecyclerView.setHasFixedSize(true);
+        dashboardStringAdapter.notifyDataSetChanged();
 
     }
 
