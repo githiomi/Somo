@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,6 +20,32 @@
 
     </RelativeLayout>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvInstructions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlToolbar"
+        android:layout_margin="3dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="@color/vote_logo_color"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="50dp">
+
+        <TextView
+            android:id="@+id/tvInstructions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/instructions_placeholder"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+    </androidx.cardview.widget.CardView>
+
     <ProgressBar
         android:id="@+id/dashboardProgressBar"
         android:layout_width="35dp"
@@ -30,10 +57,11 @@
         android:id="@+id/dashboardRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/rlToolbar"
+        android:layout_below="@id/cvInstructions"
         android:visibility="gone" />
 
     <TextView
+        android:id="@+id/tvErrorMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"

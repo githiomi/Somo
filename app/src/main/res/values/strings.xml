@@ -19,6 +19,7 @@
     <string name="role_placeholder">Role</string>
     <string name="dashboard_item">Dashboard Item</string>
     <string name="error_text">Cannot Retrieve Data. \n\nCheck network connection.</string>
+    <string name="instructions_placeholder">Instructions here</string>
 
     <!-- String arrays -->
     <string-array name="roles">

@@ -1,9 +1,11 @@
 package com.githiomi.somo.Adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,10 +19,12 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
 
     // Local variables
     private final String[] dashboardStrings;
+    private final Context context;
 
     // Adapter constructor
-    public DashboardAdapter( String[] dashboardStrings) {
-        this.dashboardStrings = dashboardStrings;
+    public DashboardAdapter(String[] adapterStrings, Context contextFromActivity) {
+        this.dashboardStrings = adapterStrings;
+        this.context = contextFromActivity;
     }
 
     @NonNull
@@ -44,7 +48,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
         return dashboardStrings.length;
     }
 
-    public static class DashboardViewHolder extends RecyclerView.ViewHolder {
+    public class DashboardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         // Text view widget
         @BindView(R.id.dashboardItemText) TextView dashboardTextItem;
@@ -55,6 +59,9 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
             // Bind the widgets
             ButterKnife.bind(this, itemView);
 
+            // On click listener
+            itemView.setOnClickListener(this);
+
         }
 
         // Method to bind text to view
@@ -62,5 +69,16 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
             dashboardTextItem.setText(dashboardString);
         }
 
+        // Method to assign on click functions
+        @Override
+        public void onClick(View v) {
+            int clicked = getAdapterPosition();
+
+            if ( v == itemView ){
+                String clickedItem = dashboardStrings[clicked];
+
+                Toast.makeText(context, clickedItem, Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

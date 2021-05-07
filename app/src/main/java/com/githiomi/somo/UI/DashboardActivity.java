@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,6 +33,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -45,7 +48,10 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     @BindView(R.id.dashboardHeader) TextView wDashboardHeader;
     @BindView(R.id.userProfilePicture) ImageView wUserProfilePicture;
     @BindView(R.id.dashboardProgressBar) ProgressBar wDashboardProgressBar;
+    @BindView(R.id.cvInstructions) CardView wInstructions;
+    @BindView(R.id.tvInstructions) TextView wInstructionsText;
     @BindView(R.id.dashboardRecyclerView) RecyclerView wDashboardRecyclerView;
+    @BindView(R.id.tvErrorMessage) TextView wErrorMessage;
 
     // Local variables
     private FirebaseAuth mFirebaseAuth;
@@ -95,14 +101,22 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                                 String header = role + ": " + username;
                                 wDashboardHeader.setText(header);
 
+                                // Show Instructions
+                                wInstructions.setVisibility(View.VISIBLE);
+                                wInstructionsText.setVisibility(View.VISIBLE);
+
                                 // Change dashboard depending on the role
                                 assert role != null;
                                 if ( role.equals("An Admin") ){
                                     dashboardStrings = getResources().getStringArray(R.array.admin_dashboard);
+                                    String adminInstructions = "Control the voting process from here:";
+                                    wInstructionsText.setText(adminInstructions);
                                 }
 
                                 if ( role.equals("A Voter") ){
                                     dashboardStrings = getResources().getStringArray(R.array.voter_dashboard);
+                                    String voterInstructions = "Vote from here:";
+                                    wInstructionsText.setText(voterInstructions);
                                 }
 
                                 // Hide progress bar and show recycler view
@@ -113,6 +127,11 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
                                 passToAdapter(dashboardStrings);
 
                             }else {
+
+                                // Hide progress bar and show error
+                                wDashboardProgressBar.setVisibility(View.GONE);
+                                wErrorMessage.setVisibility(View.VISIBLE);
+
                                 String header = "Welcome: " + username;
 
                                 wDashboardHeader.setText(header);
@@ -121,7 +140,9 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-                            // Nothing
+                            // Hide progress bar and show error
+                            wDashboardProgressBar.setVisibility(View.GONE);
+                            wErrorMessage.setVisibility(View.VISIBLE);
                         }
                     });
 
@@ -153,7 +174,7 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     private void passToAdapter(String[] dashboardStringArray){
 
         // Init the adapter
-        DashboardAdapter dashboardStringAdapter = new DashboardAdapter(dashboardStringArray);
+        DashboardAdapter dashboardStringAdapter = new DashboardAdapter(dashboardStringArray, this);
 
         wDashboardRecyclerView.setLayoutManager( new LinearLayoutManager(this) );
         wDashboardRecyclerView.setAdapter(dashboardStringAdapter);
