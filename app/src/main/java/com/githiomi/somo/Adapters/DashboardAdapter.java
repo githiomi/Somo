@@ -1,6 +1,9 @@
 package com.githiomi.somo.Adapters;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.githiomi.somo.R;
+import com.githiomi.somo.UI.SecondaryActivity;
+import com.githiomi.somo.Utils.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,11 +25,13 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
     // Local variables
     private final String[] dashboardStrings;
     private final Context context;
+    private final Activity activity;
 
     // Adapter constructor
-    public DashboardAdapter(String[] adapterStrings, Context contextFromActivity) {
+    public DashboardAdapter(String[] adapterStrings, Context contextFromActivity, Activity activityFromDashboard) {
         this.dashboardStrings = adapterStrings;
         this.context = contextFromActivity;
+        this.activity = activityFromDashboard;
     }
 
     @NonNull
@@ -33,7 +40,6 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
 
         // Create the layout
         View dashboardItemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.dashboard_item, parent, false);
-
         return new DashboardViewHolder(dashboardItemView);
     }
 
@@ -65,20 +71,21 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
         }
 
         // Method to bind text to view
-        private void bindToView(String dashboardString){
+        private void bindToView(String dashboardString) {
             dashboardTextItem.setText(dashboardString);
         }
 
         // Method to assign on click functions
         @Override
         public void onClick(View v) {
-            int clicked = getAdapterPosition();
+            int clicked = getAbsoluteAdapterPosition();
+            String clickedItem = dashboardStrings[clicked];
 
-            if ( v == itemView ){
-                String clickedItem = dashboardStrings[clicked];
+            Toast.makeText(context, clickedItem, Toast.LENGTH_SHORT).show();
 
-                Toast.makeText(context, clickedItem, Toast.LENGTH_SHORT).show();
-            }
+            Intent toSecondaryActivity = new Intent(context, SecondaryActivity.class);
+            toSecondaryActivity.putExtra(Constants.SECONDARY_INTENT_STRING, clickedItem);
+            context.startActivity(toSecondaryActivity, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
         }
     }
 }

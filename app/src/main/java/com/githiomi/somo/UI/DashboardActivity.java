@@ -174,13 +174,12 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     private void passToAdapter(String[] dashboardStringArray){
 
         // Init the adapter
-        DashboardAdapter dashboardStringAdapter = new DashboardAdapter(dashboardStringArray, this);
+        DashboardAdapter dashboardStringAdapter = new DashboardAdapter(dashboardStringArray, this, this);
 
         wDashboardRecyclerView.setLayoutManager( new LinearLayoutManager(this) );
         wDashboardRecyclerView.setAdapter(dashboardStringAdapter);
 
         wDashboardRecyclerView.setHasFixedSize(true);
-        dashboardStringAdapter.notifyDataSetChanged();
 
     }
 
