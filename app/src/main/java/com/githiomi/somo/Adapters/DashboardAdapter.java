@@ -81,8 +81,6 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.Dash
             int clicked = getAbsoluteAdapterPosition();
             String clickedItem = dashboardStrings[clicked];
 
-            Toast.makeText(context, clickedItem, Toast.LENGTH_SHORT).show();
-
             Intent toSecondaryActivity = new Intent(context, SecondaryActivity.class);
             toSecondaryActivity.putExtra(Constants.SECONDARY_INTENT_STRING, clickedItem);
             context.startActivity(toSecondaryActivity, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());

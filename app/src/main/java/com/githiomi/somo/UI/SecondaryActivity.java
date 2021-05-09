@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
+import com.githiomi.somo.Fragments.AdminsFragment;
 import com.githiomi.somo.Fragments.VotersFragment;
 import com.githiomi.somo.R;
 import com.githiomi.somo.Utils.Constants;
@@ -40,6 +41,7 @@ public class SecondaryActivity extends AppCompatActivity {
     // Method to change the layout
     private void changeLayout( String userSelectedOption ){
 
+        // Voters
         if ( userSelectedOption.equals("School President") ){
             VotersFragment schoolPresident = VotersFragment.newInstance(userSelectedOption);
             replaceView(schoolPresident);
@@ -63,6 +65,57 @@ public class SecondaryActivity extends AppCompatActivity {
         if ( userSelectedOption.equals("Sports Secretary") ){
             VotersFragment sportsSecretary = VotersFragment.newInstance(userSelectedOption);
             replaceView(sportsSecretary);
+        }
+
+        if ( userSelectedOption.equals("ICT & Innovation Secretary") ){
+            VotersFragment ictSecretary = VotersFragment.newInstance(userSelectedOption);
+            replaceView(ictSecretary);
+        }
+
+        if ( userSelectedOption.equals("Education Secretary") ){
+            VotersFragment educationSecretary = VotersFragment.newInstance(userSelectedOption);
+            replaceView(educationSecretary);
+        }
+
+        if ( userSelectedOption.equals("Residential Life Representative") ){
+            VotersFragment resLifeSecretary = VotersFragment.newInstance(userSelectedOption);
+            replaceView(resLifeSecretary);
+        }
+
+        if ( userSelectedOption.equals("Wellness Secretary") ){
+            VotersFragment wellnessSecretary = VotersFragment.newInstance(userSelectedOption);
+            replaceView(wellnessSecretary);
+        }
+
+        if ( userSelectedOption.equals("Medical and Environmental Secretary") ){
+            VotersFragment medicalSecretary = VotersFragment.newInstance(userSelectedOption);
+            replaceView(medicalSecretary);
+        }
+
+        // Admins
+        if ( userSelectedOption.equals("All Candidates") ){
+            AdminsFragment allCandidates = AdminsFragment.newInstance(userSelectedOption);
+            replaceView(allCandidates);
+        }
+
+        if ( userSelectedOption.equals("Positions Viable") ){
+            AdminsFragment positionsViable = AdminsFragment.newInstance(userSelectedOption);
+            replaceView(positionsViable);
+        }
+
+        if ( userSelectedOption.equals("Candidates Per Position") ){
+            AdminsFragment candidatesPerPosition = AdminsFragment.newInstance(userSelectedOption);
+            replaceView(candidatesPerPosition);
+        }
+
+        if ( userSelectedOption.equals("Specific Candidate") ){
+            AdminsFragment specificCandidate = AdminsFragment.newInstance(userSelectedOption);
+            replaceView(specificCandidate);
+        }
+
+        if ( userSelectedOption.equals("Votes") ){
+            AdminsFragment votes = AdminsFragment.newInstance(userSelectedOption);
+            replaceView(votes);
         }
     }
 
