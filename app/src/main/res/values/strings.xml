@@ -52,4 +52,66 @@
         <item>Medical and Environmental Secretary</item>
     </string-array>
 
+    // For the contestants
+    <string-array name="school_president">
+        <item>Carina Clay</item>
+        <item>Lavinia Lamb</item>
+        <item>Bernadette O'Brien</item>
+        <item>Tyron Dickinson</item>
+    </string-array>
+
+    <string-array name="vice_president">
+        <item>Tom Hernandez</item>
+        <item>Tahmid Foster</item>
+    </string-array>
+
+    <string-array name="treasurer">
+        <item>Lillie-May Knights</item>
+        <item>Nazia Olson</item>
+        <item>Catriona Hendrix</item>
+    </string-array>
+
+    <string-array name="secretary">
+        <item>Riley-Jay Mcintyre</item>
+        <item>Jayne Mcconnell</item>
+    </string-array>
+
+    <string-array name="sports_president">
+        <item>Elora Galvan</item>
+        <item>Lianne Vance</item>
+        <item>Lyra Thorpe</item>
+        <item>Peter Ward</item>
+    </string-array>
+
+    <string-array name="ict_and_innovation">
+        <item>Haya Whelan</item>
+        <item>Raja Day</item>
+        <item>Amba Humphreys</item>
+        <item>Umayr Jeffery</item>
+        <item>Koa Holcomb</item>
+    </string-array>
+
+    <string-array name="education_secretary">
+        <item>Bear Sheppard</item>
+        <item>Kurtis Richards</item>
+        <item>Kurtis Richards</item>
+        <item>Madina Hester</item>
+    </string-array>
+
+    <string-array name="resLifeSecretary">
+        <item>Aiesha Ferreira</item>
+        <item>Zidane Philip</item>
+    </string-array>
+
+    <string-array name="wellness_secretary">
+        <item>Luke Joseph</item>
+        <item>Yuvaan Gale</item>
+        <item>Rohit Heaton</item>
+        <item>Ella-Mae Alfaro</item>
+    </string-array>
+
+    <string-array name="medSecretary">
+        <item>Morris Fields</item>
+    </string-array>
+
 </resources>

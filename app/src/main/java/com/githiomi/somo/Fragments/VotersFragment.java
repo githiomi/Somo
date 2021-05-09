@@ -54,6 +54,16 @@ public class VotersFragment extends Fragment {
 
         textView.setText(votersOption);
 
+        // Get the relevant strings for the chosen position
+        getCandidates(votersOption);
+
         return votingView;
+    }
+
+    // Method to get contestant names from the strings file
+    private void getCandidates(String candidatesPost){
+
+        String[] contestants = getResources().getStringArray(R.array.)
+
     }
 }
