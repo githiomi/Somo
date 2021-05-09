@@ -2,6 +2,7 @@
 
     <!-- Strings -->
     <string name="app_name">Vote by Somo</string>
+    <string name="add_vote">Add A Vote</string>
     <string name="uon_es_title">University of Nairobi \nElectoral System</string>
     <string name="email_placeholder">Email</string>
     <string name="username_placeholder">Username</string>
@@ -18,6 +19,9 @@
     <string name="logout">Logout</string>
     <string name="role_placeholder">Role</string>
     <string name="dashboard_item">Dashboard Item</string>
+    <string name="contestant_name">Daniel Githiomi</string>
+    <string name="votes_text">Votes: </string>
+    <string name="votes_count">20</string>
     <string name="error_text">Cannot Retrieve Data. \n\nCheck network connection.</string>
     <string name="instructions_placeholder">Instructions here</string>
 
@@ -47,7 +51,5 @@
         <item>Wellness Secretary</item>
         <item>Medical and Environmental Secretary</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
