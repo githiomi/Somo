@@ -20,64 +20,66 @@ import butterknife.ButterKnife;
 
 public class CandidatesAdapter extends RecyclerView.Adapter<CandidatesAdapter.CandidatesAdapterVH> {
 
-    // Local Variables
-    private Context context;
-    private String[] contestantsForPost;
+    // Local variables
+    private String[] contestants;
 
     // Constructor
-    public CandidatesAdapter(Context contextFromFragment, String[] contestants) {
-        this.context = contextFromFragment;
-        this.contestantsForPost = contestants;
+    public CandidatesAdapter(String[] contestantsFromFragment) {
+        this.contestants = contestantsFromFragment;
     }
 
+    @NonNull
     @NotNull
     @Override
     public CandidatesAdapterVH onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        View contestantsItemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.voting_item, parent, false);
-        return new CandidatesAdapterVH(contestantsItemView);
+        View contestantView = LayoutInflater.from(parent.getContext()).inflate(R.layout.voting_item, parent, false);
+
+        return new CandidatesAdapterVH(contestantView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull CandidatesAdapterVH holder, int position) {
-        // Bind data to view
-        holder.bindToView(contestantsForPost[position]);
+        holder.bindToView(contestants[position]);
     }
 
     @Override
     public int getItemCount() {
-        return contestantsForPost.length;
+        return contestants.length;
     }
 
-    public class CandidatesAdapterVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class CandidatesAdapterVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         // Widgets
         @BindView(R.id.contestantName) TextView wContestantsName;
         @BindView(R.id.addVoteButton) ImageButton wAddVoteButton;
+        @BindView(R.id.votesCount) TextView wVotesCount;
 
         public CandidatesAdapterVH(@NonNull @NotNull View itemView) {
             super(itemView);
 
-            // Bind widgets
+            // Binding Views
             ButterKnife.bind(this, itemView);
 
-            // On Click listener for the add vote button
+            // On click listener for the add vote button
+            wAddVoteButton.setOnClickListener(this);
             wAddVoteButton.setOnClickListener(this);
         }
 
         // Method to bind data to view
-        private void bindToView(String contestantName){
-            wContestantsName.setText(contestantName);
+        private void bindToView(String contestant) {
+            wContestantsName.setText(contestant);
         }
 
-        // Method when the add button is clicked
+        // Methods to assign click function
         @Override
         public void onClick(View v) {
 
-            int clicked = getAbsoluteAdapterPosition();
+            if (v == wAddVoteButton) {
+                Toast.makeText(v.getContext(), "Vote Added", Toast.LENGTH_SHORT).show();
+                int votes = Integer.parseInt(wVotesCount.getText().toString());
+                int newVotes = votes + 1;
 
-            if ( v == wAddVoteButton ){
-                String toast = "Vote added for: " + contestantsForPost[clicked];
-                Toast.makeText(context, toast, Toast.LENGTH_SHORT).show();
+                wVotesCount.setText(String.valueOf(newVotes));
             }
         }
     }

@@ -24,6 +24,7 @@
     <string name="votes_count">20</string>
     <string name="error_text">Cannot Retrieve Data. \n\nCheck network connection.</string>
     <string name="instructions_placeholder">Instructions here</string>
+    <string name="votes_for_text">Vote For:</string>
 
     <!-- String arrays -->
     <string-array name="roles">
@@ -112,6 +113,12 @@
 
     <string-array name="medSecretary">
         <item>Morris Fields</item>
+    </string-array>
+
+    <string-array name="school_president">
+        <item>James Kagiri</item>
+        <item>Ted Daniel</item>
+        <item>Justus Wamswa</item>
     </string-array>
 
 </resources>

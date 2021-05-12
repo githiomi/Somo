@@ -4,9 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="3dp"
+    android:background="@color/white"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="15sp"
-    app:cardElevation="30dp">
+    app:cardElevation="20dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,7 +22,7 @@
             android:layout_toStartOf="@id/addVoteButton"
             android:background="@color/white"
             android:clickable="true"
-            android:padding="10dp"
+            android:padding="7dp"
             android:text="@string/contestant_name"
             android:textColor="@color/vote_logo_color"
             android:textSize="18sp"
@@ -38,7 +39,7 @@
             android:paddingStart="20dp"
             android:paddingTop="5dp"
             android:paddingEnd="5dp"
-            android:paddingBottom="10dp"
+            android:paddingBottom="5dp"
             android:text="@string/votes_text"
             android:textColor="@color/black"
             android:textSize="15sp" />
@@ -55,7 +56,7 @@
             android:paddingStart="1dp"
             android:paddingTop="5dp"
             android:paddingEnd="5dp"
-            android:paddingBottom="10dp"
+            android:paddingBottom="5dp"
             android:text="@string/votes_count"
             android:textColor="@color/black"
             android:textSize="15sp"
@@ -69,7 +70,7 @@
             android:layout_centerVertical="true"
             android:background="@color/transparent"
             android:contentDescription="@string/add_vote"
-            android:padding="15dp"
+            android:padding="10dp"
             android:src="@drawable/ic_add_vote" />
 
     </RelativeLayout>
